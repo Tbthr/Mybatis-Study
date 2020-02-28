@@ -5,7 +5,9 @@ import com.lyq.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author lyq_power
@@ -34,6 +36,19 @@ public class UserTest {
         UserMapper mapper = session.getMapper(UserMapper.class);
         User user = mapper.selectUserById(1);
         System.out.println(user);
+        session.close();
+    }
+
+    @Test
+    public void selectUserTest(){
+        SqlSession session=MybatisUtils.getSession();
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        Map<String,Object> map=new HashMap<>();
+        map.put("value","%刘%");
+        List<User> user = mapper.selectUserTest(map);
+        for (User user1 : user) {
+            System.out.println(user1);
+        }
         session.close();
     }
 

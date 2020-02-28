@@ -7,6 +7,10 @@
         select * from mybatis.user;
     </select>
 
+    <select id="selectUserTest" resultType="com.lyq.model.User">
+        select * from mybatis.user where name like #{value};
+    </select>
+
     <select id="selectUserById" parameterType="int" resultType="com.lyq.model.User">
         select * from mybatis.user where id = #{id};
     </select>

@@ -3,11 +3,15 @@ package com.lyq.mapper;
 import com.lyq.model.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserMapper {
 
     //查询所有
     List<User> selectUser();
+
+    //查询测试
+    List<User> selectUserTest(Map<String,Object> map);
 
     //根据ID查询
     User selectUserById(int id);
