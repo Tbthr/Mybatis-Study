@@ -3,7 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lyq.mapper.UserMapper">
-    <select id="selectUser" resultType="user">
+
+    <!--id为你添加的resultMap标签的名字，type为要映射的类的名字-->
+    <resultMap id="UserMap" type="User">
+        <!--column是列的意思，就是对应数据库表中的列的名字，property是属性的意思，也就是对应类的属性名字-->
+        <result column="pwd" property="password"/>
+    </resultMap>
+
+    <!--添加一个resultMap标签-->
+    <select id="selectUser" resultMap="UserMap">
         select * from mybatis.user;
     </select>
 
