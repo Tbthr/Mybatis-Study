@@ -6,6 +6,11 @@
     <!--引入外部(db.properties)配置文件-->
     <properties resource="db.properties"/>
 
+    <!--配置别名-->
+    <typeAliases>
+        <package name="com.lyq.model"/>
+    </typeAliases>
+
     <!--环境配置-->
     <environments default="development">
         <environment id="development">
@@ -20,6 +25,7 @@
     </environments>
     <!--每一个Mapper.xml都需要在mybatis-config.xml核心配置文件中注册-->
     <mappers>
-        <mapper class="com.UserMapper"/>
+        <mapper class="com.lyq.mapper.StudentMapper"/>
+        <mapper class="com.lyq.mapper.TeacherMapper"/>
     </mappers>
 </configuration>

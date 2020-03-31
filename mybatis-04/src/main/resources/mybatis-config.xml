@@ -8,7 +8,7 @@
 
     <!--配置别名-->
     <typeAliases>
-<!--        <typeAlias type="com.lyq.model.User" alias="User"/>-->
+<!--        <typeAlias type="com.User" alias="User"/>-->
         <package name="com.lyq.model"/>
     </typeAliases>
 

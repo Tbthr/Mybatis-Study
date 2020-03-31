@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lyq.mapper.UserMapper">
+<mapper namespace="com.UserMapper">
 
     <!--id为你添加的resultMap标签的名字，type为要映射的类的名字-->
     <resultMap id="UserMap" type="User">
@@ -15,15 +15,15 @@
         select * from mybatis.user;
     </select>
 
-    <select id="selectUserById" parameterType="int" resultType="com.lyq.model.User">
+    <select id="selectUserById" parameterType="int" resultType="com.User">
         select * from mybatis.user where id = #{id};
     </select>
 
-    <insert id="addUser" parameterType="com.lyq.model.User">
+    <insert id="addUser" parameterType="com.User">
         insert into mybatis.user(id,name,pwd) values (#{id},#{name},#{pwd});
     </insert>
 
-    <update id="updateUserById" parameterType="com.lyq.model.User">
+    <update id="updateUserById" parameterType="com.User">
         update mybatis.user set name=#{name} ,pwd=#{pwd} where id = #{id};
     </update>
 

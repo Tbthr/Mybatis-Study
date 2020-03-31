@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyq.mapper.StudentMapper">
+
+    <!--    方法一：  1.查出学生信息 2.通过学生的tid查询到老师的信息-->
+
+    <!--    第一个id为方法名-->
+    <select id="getStudent" resultMap="studentTeacher">
+        select *
+        from mybatis.student
+    </select>
+
+    <!--    id为select的resultMap的值，type是映射的类名字Student，，相当于select和resulMap连接了起来-->
+    <resultMap id="studentTeacher" type="Student">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <!--    在Student.java中第三个变量类型是Teacher类型，是复杂类型，处理：将result换成，
+                若是对象：association，若是集合：collection
+                property对应javaType，column对应select
+                javaType：给property一个类型
+                select：表明colum要干什么,要select="getTeacher"
+                select：接着连接下一个id="getTeacher"-->
+        <association property="teacher" column="tid" javaType="Teacher" select="getTeacher"/>
+    </resultMap>
+
+    <!--    此时TeacherMapper接口没方法，那就设一个getTeacher方法-->
+    <select id="getTeacher" resultType="teacher">
+        select *
+        from mybatis.teacher
+        where id = #{tid}
+    </select>
+
+
+    <!--    方法二：直接写出完整sql。
+            然后写出resultMap，此时第三个属性仍是复杂类型。
+            在association只写property对应javaType="Teacher"
+            然后我们查询老师的id和name，然后在association里面再编写Teacher的property和columu-->
+    <select id="getStudent2" resultMap="studentTeacher2">
+        select s.id sid, s.name sname, t.name tname, t.id tid
+        from mybatis.student s,
+             mybatis.teacher t
+        where s.tid = t.id
+    </select>
+
+    <resultMap id="studentTeacher2" type="Student">
+        <!--    注意：查询的就是一个表。此处的column(数据库中的列)，就变成了s.id的别名sid等-->
+        <result property="id" column="sid"/>
+        <result property="name" column="sname"/>
+        <association property="teacher" javaType="Teacher">
+            <result property="name" column="tname"/>
+            <result property="id" column="tid"/>
+        </association>
+    </resultMap>
+</mapper>
