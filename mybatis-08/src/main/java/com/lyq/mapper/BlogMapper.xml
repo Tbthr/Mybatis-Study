@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyq.mapper.BlogMapper">
+    <!--插入数据-->
+    <insert id="insertBlog" parameterType="blog">
+        insert into mybatis.blog(id,title,author,create_time,views) values (#{id},#{title},#{author},#{createTime},#{views})
+    </insert>
+
+    <!--Where-IF语句-->
+    <select id="queryBlogIF" parameterType="map" resultType="blog">
+        select * from mybatis.blog
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="title != null">
+                and title = #{title}
+            </if>
+            <if test="author != null">
+                and author = #{author}
+            </if>
+            <if test="create_time != null">
+                and create_time = #{create_time}
+            </if>
+            <if test="views != null">
+                and views = #{views}
+            </if>
+        </where>
+    </select>
+
+    <!--Where-choose-when-otherwise语句。当传入的参数都不在when中存在时，就执行otherwise-->
+    <select id="queryBlogChoose" parameterType="map" resultType="blog">
+        select * from mybatis.blog
+        <where>
+            <choose>
+                <when test="id != null">id = #{id}</when>
+                <when test="title != null">and title = #{title}</when>
+                <when test="author != null">and author = #{author}</when>
+                <when test="create_time != null">and create_time = #{create_time}</when>
+                <when test="views != null">and views = #{views}</when>
+                <otherwise>
+                    1=1
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <!--将每次都要编写的IF语句提取出来，id随便取-->
+    <sql id = "sql-if">
+        <if test="title != null">title = #{title},</if>
+        <if test="author != null">author = #{author},</if>
+        <if test="create_time != null">create_time = #{create_time},</if>
+        <if test="views != null">views = #{views}</if>
+    </sql>
+
+    <!--set-if语句更新Blog-->
+    <update id="updateBlog" parameterType="map">
+        update mybatis.blog
+        <set>
+            <!--引用提取出来的SQL片段SQL-->
+            <include refid="sql-if"/>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--查询where 1=1 and (id=0 or id=2 or id=3)用foreach-->
+    <select id="queryBlogForEach" parameterType="map" resultType="blog">
+        select * from mybatis.blog
+        <where>
+            <!--类似集合的foreach循环。
+            foreach标签内容分别为：取出的内容给定一个名字，开始and (,结尾)，分隔or，给定一个集合的名字-->
+            <foreach item="id" open="and (" close=")" separator="or" collection="ids">
+                id = #{id}
+            </foreach>
+        </where>
+    </select>
+</mapper>
