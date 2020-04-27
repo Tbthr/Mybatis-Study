@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyq.mapper.UserMapper">
+
+    <!--&lt;!&ndash;配置二级缓存。先进先出策略，每隔60s缓存一次，最多缓存512个，是否只读(此些配置完全可以不写)&ndash;&gt;
+    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true"/>-->
+
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+    <!--  useCache=false表示这条语句不进入缓存，true是进入缓存  -->
+    <select id="queryUserById" resultType="user" useCache="true">
+        select * from mybatis.user where id = #{id}
+    </select>
+</mapper>

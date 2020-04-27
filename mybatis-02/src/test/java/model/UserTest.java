@@ -17,7 +17,7 @@ public class UserTest {
     public void selectUser() {
         SqlSession session = MybatisUtils.getSession();
         //方法一: 旧
-//        List<User> users = session.selectList("com.com.lyq.mapper.UserMapper.selectUser");
+//        List<User> users = session.selectList("com.com.com.lyq.mapper.UserMapper.selectUser");
 
         //方法二: 新
         UserMapper mapper = session.getMapper(UserMapper.class);
