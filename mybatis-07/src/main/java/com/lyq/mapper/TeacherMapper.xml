@@ -18,6 +18,12 @@
         where s.tid = t.id and t.id=#{id}
     </select>
 
+    <select id="getAllTeacher" resultMap="TeacherStudent">
+        select s.id sid, s.name sname , t.name tname, t.id tid
+        from mybatis.student s,mybatis.teacher t
+        where s.tid = t.id
+    </select>
+
     <resultMap id="TeacherStudent" type="Teacher">
         <result  property="name" column="tname"/>
         <collection property="students" ofType="Student">

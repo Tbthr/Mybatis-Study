@@ -44,8 +44,9 @@ public class MyTest {
         BlogMapper mapper = sqlSession.getMapper(BlogMapper.class);
 
         Map<String, String> map = new HashMap<>();
-        map.put("title","Mybatis so easy");
-        map.put("views","999");
+        // map.put("title","Mybatis so easy");
+        // map.put("views","999");
+        map.put("order","true");
 
         List<Blog> blogs = mapper.queryBlogIF(map);
         for (Blog blog : blogs) {
@@ -75,7 +76,7 @@ public class MyTest {
         BlogMapper mapper = sqlSession.getMapper(BlogMapper.class);
 
         Map<String, java.io.Serializable> map = new HashMap<>();
-        map.put("id","05dbfc1dbb624fc8806d7c8091d57499");
+        map.put("id","1");
         map.put("views",777);
         mapper.updateBlog(map);
         sqlSession.close();
@@ -89,7 +90,7 @@ public class MyTest {
         //通过id查询。将List集合存到Map里面，List里面都是id
         Map map = new HashMap();
         List<String> list = new ArrayList<>();
-        list.add("05dbfc1dbb624fc8806d7c8091d57499");
+        list.add("1");
         map.put("ids",list);
         List<Blog> blogs = mapper.queryBlogForEach(map);
         blogs.forEach(System.out::println);

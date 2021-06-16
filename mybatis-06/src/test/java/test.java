@@ -1,5 +1,6 @@
 import com.lyq.mapper.StudentMapper;
 import com.lyq.model.Student;
+import com.lyq.model.Teacher;
 import com.lyq.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
@@ -21,11 +22,24 @@ public class test {
     }
 
     @Test
-    public void testGetStudents2(){
+    public void testGetStudents2() {
         SqlSession session = MybatisUtils.getSession();
         StudentMapper mapper = session.getMapper(StudentMapper.class);
 
         List<Student> students = mapper.getStudent2();
         students.forEach(System.out::println);
+    }
+
+    @Test
+    public void testInsertStudent() {
+        SqlSession session = MybatisUtils.getSession();
+        StudentMapper mapper = session.getMapper(StudentMapper.class);
+
+        int test = mapper.insertStudent(
+                Student.builder()
+                        .name("test")
+                        .teacher(Teacher.builder().id(1).build())
+                        .build());
+        System.out.println(test);
     }
 }

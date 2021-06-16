@@ -4,6 +4,8 @@ import com.lyq.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
+import java.util.List;
+
 /**
  * @author lyq_power
  * @date 2020/3/20 10:04 29s
@@ -25,5 +27,13 @@ public class test {
         Teacher teacher = mapper.getTeacher2(1);
         System.out.println(teacher.getName());
         System.out.println(teacher.getStudents());
+    }
+
+    @Test
+    public void testGetAllTeacher(){
+        SqlSession session = MybatisUtils.getSession();
+        TeacherMapper mapper = session.getMapper(TeacherMapper.class);
+        List<Teacher> allTeacher = mapper.getAllTeacher();
+        allTeacher.forEach(System.out::println);
     }
 }

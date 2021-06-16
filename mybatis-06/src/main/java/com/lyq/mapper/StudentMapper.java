@@ -10,4 +10,6 @@ public interface StudentMapper {
     List<Student> getStudent();
 
     List<Student> getStudent2();
+
+    int insertStudent(Student student);
 }

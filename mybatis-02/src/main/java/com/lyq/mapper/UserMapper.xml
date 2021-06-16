@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lyq.mapper.UserMapper">
+<mapper namespace="com.UserMapper">
 
     <!--id为你添加的resultMap标签的名字，type为要映射的类的名字-->
     <resultMap id="UserMap" type="User">

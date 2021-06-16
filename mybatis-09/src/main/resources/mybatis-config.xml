@@ -34,6 +34,6 @@
     </environments>
     <!--每一个Mapper.xml都需要在mybatis-config.xml核心配置文件中注册-->
     <mappers>
-        <mapper class="com.lyq.mapper.UserMapper"/>
+        <mapper class="com.UserMapper"/>
     </mappers>
 </configuration>
